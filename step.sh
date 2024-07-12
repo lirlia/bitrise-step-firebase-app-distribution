@@ -243,6 +243,7 @@ echo
 
 count=0
 while [ $count -lt "$retry_count" ]; do
+    echo "Attempt $((count + 1)) of $retry_count"
     eval "${submit_cmd}"
     if [ $? -eq 0 ]; then
         echo_done "Success"
@@ -253,4 +254,6 @@ while [ $count -lt "$retry_count" ]; do
             echo_fail "Fail"
         fi
     fi
+
+    sleep $((count * 5))
 done
