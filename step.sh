@@ -115,6 +115,7 @@ echo_details "* testers: $testers"
 echo_details "* groups: $groups"
 echo_details "* flags: $flags"
 echo_details "* is_debug: $is_debug"
+echo_details "* retry_count: $retry_count"
 echo_details "* upgrade_firebase_tools: $upgrade_firebase_tools"
 
 echo
@@ -240,10 +241,16 @@ fi
 echo_details "$submit_cmd"
 echo
 
-eval "${submit_cmd}"
-
-if [ $? -eq 0 ] ; then
-    echo_done "Success"
-else
-    echo_fail "Fail"
-fi
+count=0
+while [ $count -lt "$retry_count" ]; do
+    eval "${submit_cmd}"
+    if [ $? -eq 0 ]; then
+        echo_done "Success"
+        exit 0
+    else
+        count=$((count + 1))
+        if [ $count -eq "$retry_count" ]; then
+            echo_fail "Fail"
+        fi
+    fi
+done

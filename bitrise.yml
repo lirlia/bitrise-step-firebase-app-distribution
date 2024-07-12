@@ -79,6 +79,7 @@ workflows:
         - service_credentials_file: $BITRISEIO_service_credentials_file_URL
         - is_debug: "true"
         - release_notes: "Some Test  '     #2  here"
+        - retry_count: 3
   deploy-ios:
     steps:
     - path::./:
@@ -90,6 +91,7 @@ workflows:
         - firebase_token: $FIREBASE_CI_TOKEN
         - is_debug: "true"
         - release_notes: 'Some Test #1 "Over" here'
+        - retry_count: 3
   deploy-bitrise:
     steps:
     - deploy-to-bitrise-io:

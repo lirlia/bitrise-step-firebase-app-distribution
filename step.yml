@@ -137,3 +137,10 @@ inputs:
       value_options:
         - "false"
         - "true"
+  - retry_count: "3"
+    opts:
+      title: Retry Count
+      summary: Number of retries in case of failure.
+      description: |
+        Number of retries in case of failure.
+      is_required: false
